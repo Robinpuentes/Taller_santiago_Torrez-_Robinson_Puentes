@@ -8,7 +8,7 @@ CALL insert_fabricante(7, "Gigabyte");
 CALL insert_fabricante(8, "Huawei");
 CALL insert_fabricante(9, "Xiaomi");
 SELECT * FROM fabricante;
--- 
+-- Insert_fabricante 
 
 CALL insert_productos(1,"Disco_duro_SATA3_1TB",86.99, 5);
 CALL insert_productos(2,"Memoria_RAM_DDR4_8GB",120, 6);
@@ -21,3 +21,10 @@ CALL insert_productos(8,"Portatil_Yoga_520",559,2);
 CALL insert_productos(9,"Portatil_Ideapd_320",444,1);
 CALL insert_productos(10,"Impresora_HP_Deskjet_3720",59.99,3);
 CALL insert_productos(11,"Impresora_HP_Laserjet_Pro_M26nw",180,3);
+
+# Ejercicio 1
+SELECT nombre FROM productos;
+# Ejercicio 2
+SELECT nombre,precio FROM productos;
+# Ejercicio 3
+SELECT nombre,(precio * 0.89), precio AS precio_euro FROM productos;
