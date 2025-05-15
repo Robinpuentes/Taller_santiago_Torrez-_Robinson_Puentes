@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS db_tarea;
 CREATE DATABASE db_tarea;
 USE db_tarea;
 CREATE TABLE productos (
