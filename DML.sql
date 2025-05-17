@@ -2,7 +2,7 @@ USE db_tarea;
 
 -- Insert_fabricante
 CALL Insert_fabricante("Asus");
-CALL insert_fabricante("lenovo");
+CALL insert_fabricante("Lenovo");
 CALL insert_fabricante("Hewlett-Packard");
 CALL insert_fabricante("Samsung");
 CALL insert_fabricante("Seagate");
@@ -85,7 +85,7 @@ SELECT nombre, precio, codigo_fabricante FROM producto WHERE precio > 200 AND co
 SELECT nombre, codigo_fabricante FROM producto
 WHERE codigo_fabricante = 1 OR codigo_fabricante = 3 OR codigo_fabricante = 5;
 -- 28 . Lista todos los productos donde el identificador de fabricante sea 1, 3 o 5. Utilizando el operador IN. 
-SELECT nombre, codigo_fabricante FROM productos WHERE codigo_fabricante IN (1, 3, 5);
+SELECT nombre, codigo_fabricante FROM producto WHERE codigo_fabricante IN (1, 3, 5);
 -- 29 Lista el nombre y el precio de los productos en céntimos (Habrá que multiplicar por 100
 -- el valor del precio). Cree un alias para la columna que contiene el precio que se llame céntimos. 
 SELECT nombre, precio * 100 AS céntimos FROM producto;
@@ -123,21 +123,25 @@ SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p JOIN fabricant
 -- Mysql 1
 SELECT p.codigo AS producto_codigo, p.nombre, f.nombre AS fabricante, f.codigo AS fabricante_id FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo;
 -- Mysql 2
-SELECT p.id AS producto_id, p.nombre, f.id AS fabricante_id, f.nombre AS fabricante
-FROM producto p
-INNER JOIN fabricante f ON p.fabricante_id = f.id;
-# 4. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más barato.
+SELECT p.codigo AS producto_id, p.nombre, f.codigo AS fabricante_id, f.nombre AS fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo;
+# 4. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más barato
 -- Mysql 1
+SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo ORDER BY p.precio ASC LIMIT 1;
 -- Mysql 2
+SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p  JOIN fabricante f ON p.codigo_fabricante = f.codigo ORDER BY p.precio ASC LIMIT 1;
 # 5. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más caro.
 -- Mysql 1
+SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo ORDER BY p.precio DESC LIMIT 1;
 -- Mysql 2
+SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo ORDER BY p.precio DESC LIMIT 1;
 # 6. Devuelve una lista de todos los productos del fabricante Lenovo.
 -- Mysql 1
+SELECT p.* FROM producto p, fabricante f WHERE f.codigo_fabricante = f.codigo and f.nombre = 'Lenovo';
 -- Mysql 2
+SELECT p.* FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre = 'Lenovo';
 # 7. Devuelve una lista de todos los productos del fabricante Crucial que tengan un precio mayor que 200€.
 -- Mysql 1
+SELECT p.* FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND f.nombre = 'Crucial' AND p.precio > 200;
 -- Mysql 2
-
-
+SELECT p.* FROM producto p JOIN fabricante f on p.codigo_fabricante = f.codigo WHERE f.nombre = 'Crucial' AND p.precio > 200;
 
