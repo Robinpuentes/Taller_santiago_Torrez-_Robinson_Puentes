@@ -142,12 +142,11 @@ SELECT p.* FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo W
 -- Mysql 1
 SELECT p.* FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND f.nombre = 'Crucial' AND p.precio > 200;
 -- Mysql 2
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
+
+
 SELECT p.* FROM producto p JOIN fabricante f on p.codigo_fabricante = f.codigo WHERE f.nombre = 'Crucial' AND p.precio > 200;
->>>>>>> 6f4c23b5387bb914baf050bab43e0b2a86a117ca
+
 # 8. Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett Packardy Seagate. Sin utilizar el operador IN. 
 -- Mysql 1
 SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo   AND (f.nombre = 'Asus' OR f.nombre = 'Hewlett-Packard' OR f.nombre = 'Seagate');
@@ -306,10 +305,7 @@ SELECT p.*, f.nombre AS fabricante FROM producto p, fabricante f WHERE p.codigo_
 # 2. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin utilizar INNER JOIN).
 SELECT p.*, f.nombre FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND p.precio = (SELECT MAX( p2.precio) FROM producto p2, fabricante f2 WHERE p2.codigo_fabricante = f2.codigo AND f2.nombre = 'Lenovo');
 
-<<<<<<< HEAD
-=======
+
+
 SELECT p.* FROM producto p JOIN fabricante f on p.codigo_fabricante = f.codigo WHERE f.nombre = 'Crucial' AND p.precio > 200;
->>>>>>> c1019705cf45a549a27aec145383501ad70b3b64
-=======
->>>>>>> 6f4c23b5387bb914baf050bab43e0b2a86a117ca
 
