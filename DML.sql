@@ -107,7 +107,6 @@ SELECT nombre FROM producto WHERE nombre LIKE '%Monitor%' AND precio < 215;
 SELECT nombre, precio FROM producto WHERE precio >= 180
 ORDER BY precio DESC, nombre ASC;
 
-
 -- 1.1.4 Consultas multitabla (Composición interna)
 # 1. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los productos de la base de datos.
 -- Mysql 1
@@ -144,27 +143,16 @@ SELECT p.* FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo W
 SELECT p.* FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND f.nombre = 'Crucial' AND p.precio > 200;
 -- Mysql 2
 SELECT p.* FROM producto p JOIN fabricante f on p.codigo_fabricante = f.codigo WHERE f.nombre = 'Crucial' AND p.precio > 200;
-
-<<<<<<< HEAD
--- 1.1.7 Subconsultas (En la cláusula WHERE)
--- 1.1.7.1 Con operadores básicos de comparación
-# 1. Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN).
-SELECT p.*, f.nombre AS fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND f.nombre = 'Lenovo';
-# 2. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin utilizar INNER JOIN).
-SELECT p.*, f.nombre FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND p.precio = (SELECT MAX( p2.precio) FROM producto p2, fabricante f2 WHERE p2.codigo_fabricante = f2.codigo AND f2.nombre = 'Lenovo');
-=======
 # 8. Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett Packardy Seagate. Sin utilizar el operador IN. 
 -- Mysql 1
 SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo   AND (f.nombre = 'Asus' OR f.nombre = 'Hewlett-Packard' OR f.nombre = 'Seagate');
 -- Mysql 2
 SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre = 'Asus' OR f.nombre = 'Hewlett-Packard' OR f.nombre = 'Seagate';
-
 # 9.Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett Packardy Seagate. Utilizando el operador IN.
 -- Mysql 1
 SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo   AND f.nombre IN ('Asus', 'Hewlett-Packard', 'Seagate');
 -- Mysql 2
 SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre IN ('Asus', 'Hewlett-Packard', 'Seagate');
-
 # 10.. Devuelve un listado con el nombre y el precio de todos los productos de los fabricantes cuyo nombre termine por la vocal e
 -- Mysql 1
 SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p, fabricante f
@@ -172,7 +160,6 @@ WHERE p.codigo_fabricante = f.codigo   AND f.nombre LIKE '%e';
 -- Mysql 2
 SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p
 JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre LIKE '%e';
-
 # 11.. Devuelve un listado con el nombre y el precio de todos los productos cuyo nombre de fabricante contenga el carácter w en su nombre
 -- Mysql 1
 SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p, fabricante f
@@ -180,9 +167,7 @@ WHERE p.codigo_fabricante = f.codigo   AND f.nombre LIKE '%w%';
 -- Mysql 2
 SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p
 JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre LIKE '%w%';
-
-# 12. Devuelve un listado con el nombre de producto, precio y nombre de fabricante, de todos los productos que tengan un precio mayor o igual a 180€. Ordene el resultado 
-# en primer lugar por el precio (en orden descendente) y en segundo lugar por el nombre (en orden ascendente) 
+# 12. Devuelve un listado con el nombre de producto, precio y nombre de fabricante, de todos los productos que tengan un precio mayor o igual a 180€. Ordene el resultado  en primer lugar por el precio (en orden descendente) y en segundo lugar por el nombre (en orden ascendente) 
 -- Mysql 1
 SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p, fabricante f
 WHERE p.codigo_fabricante = f.codigo   AND p.precio >= 180 ORDER BY p.precio DESC, p.nombre ASC;
@@ -309,6 +294,11 @@ SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM
 JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE (p.codigo_fabricante, p.precio) IN (
 SELECT codigo_fabricante, MAX(precio) FROM producto GROUP BY codigo_fabricante) ORDER BY nombre_fabricante ASC;
 
+-- 1.1.7 Subconsultas (En la cláusula WHERE)
+-- 1.1.7.1 Con operadores básicos de comparación
+# 1. Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN).
+SELECT p.*, f.nombre AS fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND f.nombre = 'Lenovo';
+# 2. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin utilizar INNER JOIN).
+SELECT p.*, f.nombre FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND p.precio = (SELECT MAX( p2.precio) FROM producto p2, fabricante f2 WHERE p2.codigo_fabricante = f2.codigo AND f2.nombre = 'Lenovo');
 
 
->>>>>>> 92da332b27c949d2470bac049a5409ce834ee8fc
