@@ -43,7 +43,7 @@ SELECT nombre, precio FROM productos ORDER BY  precio ASC LIMIT 1;
 SELECT nombre, precio FROM productos ORDER BY precio DESC LIMIT 1;
 
 -- 20  Lista el nombre de todos los productos del fabricante cuyo identificador de fabricante es igual a 2.
-SELECT nombre,codigo_fabricante FROM productos ORDER BY codigo_fabricante ASC; 
+SELECT nombre FROM productos WHERE codigo_fabricante = 2;
 
 -- 21  Lista el nombre de los productos que tienen un precio menor o igual a 120€.
 SELECT nombre FROM productos WHERE precio <= 120;
