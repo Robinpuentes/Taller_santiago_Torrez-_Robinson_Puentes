@@ -85,7 +85,7 @@ SELECT nombre, precio, codigo_fabricante FROM producto WHERE precio > 200 AND co
 SELECT nombre, codigo_fabricante FROM producto
 WHERE codigo_fabricante = 1 OR codigo_fabricante = 3 OR codigo_fabricante = 5;
 -- 28 . Lista todos los productos donde el identificador de fabricante sea 1, 3 o 5. Utilizando el operador IN. 
-SELECT nombre, codigo_fabricante FROM productos WHERE codigo_fabricante IN (1, 3, 5);
+SELECT nombre, codigo_fabricante FROM producto WHERE codigo_fabricante IN (1, 3, 5);
 -- 29 Lista el nombre y el precio de los productos en céntimos (Habrá que multiplicar por 100
 -- el valor del precio). Cree un alias para la columna que contiene el precio que se llame céntimos. 
 SELECT nombre, precio * 100 AS céntimos FROM producto;
@@ -139,5 +139,45 @@ INNER JOIN fabricante f ON p.fabricante_id = f.id;
 -- Mysql 1
 -- Mysql 2
 
+# 8. Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett Packardy Seagate. Sin utilizar el operador IN. 
+-- Mysql 1
+SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo   AND (f.nombre = 'Asus' OR f.nombre = 'Hewlett-Packard' OR f.nombre = 'Seagate');
+-- Mysql 2
+SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre = 'Asus' OR f.nombre = 'Hewlett-Packard' OR f.nombre = 'Seagate';
 
+# 9.Devuelve un listado con todos los productos de los fabricantes Asus, Hewlett Packardy Seagate. Utilizando el operador IN.
+-- Mysql 1
+SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo   AND f.nombre IN ('Asus', 'Hewlett-Packard', 'Seagate');
+-- Mysql 2
+SELECT p.nombre AS nombre_producto, f.nombre AS nombre_fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre IN ('Asus', 'Hewlett-Packard', 'Seagate');
 
+# 10.. Devuelve un listado con el nombre y el precio de todos los productos de los fabricantes cuyo nombre termine por la vocal e
+-- Mysql 1
+SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p, fabricante f
+WHERE p.codigo_fabricante = f.codigo   AND f.nombre LIKE '%e';
+-- Mysql 2
+SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p
+JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre LIKE '%e';
+
+# 11.. Devuelve un listado con el nombre y el precio de todos los productos cuyo nombre de fabricante contenga el carácter w en su nombre
+-- Mysql 1
+SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p, fabricante f
+WHERE p.codigo_fabricante = f.codigo   AND f.nombre LIKE '%w%';
+-- Mysql 2
+SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p
+JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre LIKE '%w%';
+
+# 12. Devuelve un listado con el nombre de producto, precio y nombre de fabricante, de todos los productos que tengan un precio mayor o igual a 180€. Ordene el resultado 
+# en primer lugar por el precio (en orden descendente) y en segundo lugar por el nombre (en orden ascendente) 
+-- Mysql 1
+SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p, fabricante f
+WHERE p.codigo_fabricante = f.codigo   AND p.precio >= 180 ORDER BY p.precio DESC, p.nombre ASC;
+-- Mysql 2
+SELECT p.nombre AS nombre_producto, p.precio, f.nombre AS nombre_fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo
+WHERE p.precio >= 180 ORDER BY p.precio DESC, p.nombre ASC;
+
+# 13. Devuelve un listado con el identificador y el nombre de fabricante, solamente de aquellos fabricantes que tienen productos asociados en la base de datos.
+-- Mysql 1
+SELECT DISTINCT f.codigo AS codigo_fabricante, f.nombre AS nombre_fabricante FROM fabricante f, producto p WHERE f.codigo = p.codigo_fabricante;
+-- Mysql 2
+SELECT DISTINCT f.codigo AS codigo_fabricante, f.nombre AS nombre_fabricante FROM fabricante f INNER JOIN producto p ON f.codigo = p.codigo_fabricante;
