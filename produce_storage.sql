@@ -4,13 +4,13 @@ DROP procedure IF EXISTS `insert_productos`;
 
 DELIMITER $$
 USE `db_tarea`$$
-CREATE DEFINER=root@localhost PROCEDURE insert_productos(
+CREATE DEFINER=root@localhost PROCEDURE insert_producto(
 IN nombre VARCHAR (100),
 IN precio double,
 IN codigo_fabricante INT(10)
 )
 BEGIN
-INSERT INTO productos(nombre, precio,codigo_fabricante)
+INSERT INTO producto(nombre, precio,codigo_fabricante)
 VALUES (nombre, precio, codigo_fabricante);
 
 END$$
