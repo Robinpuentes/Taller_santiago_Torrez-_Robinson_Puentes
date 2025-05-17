@@ -136,7 +136,7 @@ SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p, fabricante f 
 SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo ORDER BY p.precio DESC LIMIT 1;
 # 6. Devuelve una lista de todos los productos del fabricante Lenovo.
 -- Mysql 1
-SELECT p.* FROM producto p, fabricante f WHERE f.codigo_fabricante = f.codigo and f.nombre = 'Lenovo';
+SELECT p.* FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo and f.nombre = 'Lenovo';
 -- Mysql 2
 SELECT p.* FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo WHERE f.nombre = 'Lenovo';
 # 7. Devuelve una lista de todos los productos del fabricante Crucial que tengan un precio mayor que 200€.
@@ -145,3 +145,9 @@ SELECT p.* FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AN
 -- Mysql 2
 SELECT p.* FROM producto p JOIN fabricante f on p.codigo_fabricante = f.codigo WHERE f.nombre = 'Crucial' AND p.precio > 200;
 
+-- 1.1.7 Subconsultas (En la cláusula WHERE)
+-- 1.1.7.1 Con operadores básicos de comparación
+# 1. Devuelve todos los productos del fabricante Lenovo. (Sin utilizar INNER JOIN).
+SELECT p.*, f.nombre AS fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND f.nombre = 'Lenovo';
+# 2. Devuelve todos los datos de los productos que tienen el mismo precio que el producto más caro del fabricante Lenovo. (Sin utilizar INNER JOIN).
+SELECT p.*, f.nombre FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo AND p.precio = (SELECT MAX( p2.precio) FROM producto p2, fabricante f2 WHERE p2.codigo_fabricante = f2.codigo AND f2.nombre = 'Lenovo');
