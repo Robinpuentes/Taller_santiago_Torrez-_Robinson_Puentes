@@ -1,4 +1,6 @@
 USE db_tarea;
+
+-- Insert_fabricante
 CALL Insert_fabricante("Asus");
 CALL insert_fabricante("lenovo");
 CALL insert_fabricante("Hewlett-Packard");
@@ -10,8 +12,7 @@ CALL insert_fabricante("Huawei");
 CALL insert_fabricante("Xiaomi");
 SELECT * FROM fabricante;
 
-
--- ------------- Insert_fabricante 
+-- Insert_Producto
 
 CALL insert_producto("Disco_duro_SATA3_1TB",86.99, 5);
 CALL insert_producto("Memoria_RAM_DDR4_8GB",120, 6);
@@ -26,7 +27,7 @@ CALL insert_producto("Impresora_HP_Deskjet_3720",59.99,3);
 CALL insert_producto("Impresora_HP_Laserjet_Pro_M26nw",180,3);
 SELECT * FROM producto;
 
-
+-- Consultas sobre una tabla
 # 1. Lista el nombre de todos los productos que hay en la tabla producto.
 SELECT nombre FROM producto;
 # 2. Lista los nombres y los precios de todos los productos de la tabla producto.
@@ -67,3 +68,32 @@ SELECT nombre, precio FROM producto ORDER BY  precio ASC LIMIT 1;
 SELECT nombre, precio FROM producto ORDER BY precio DESC LIMIT 1;
 # 20  Lista el nombre de todos los productos del fabricante cuyo identificador de fabricante es igual a 2.
 SELECT nombre,codigo_fabricante FROM producto ORDER BY codigo_fabricante ASC; 
+
+-- 1.1.4 Consultas multitabla (Composición interna)
+# 1. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los productos de la base de datos.
+-- Mysql 1
+SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo;
+-- Mysql 2
+SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo;
+# 2. Devuelve una lista con el nombre del producto, precio y nombre de fabricante de todos los productos de la base de datos. Ordene el resultado por el nombre del fabricante, por orden alfabético.
+-- Mysql 1
+SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo ORDER BY f.nombre ASC;
+-- Mysql 2
+SELECT p.nombre, p.precio, f.nombre AS fabricante FROM producto p JOIN fabricante f ON p.codigo_fabricante = f.codigo ORDER BY f.nombre ASC;
+# 3. Devuelve una lista con el identificador del producto, nombre del producto, identificador del fabricante y nombre del fabricante, de todos los productos de la base de datos.
+-- Mysql 1
+SELECT p.codigo AS producto_codigo, p.nombre, f.nombre AS fabricante, f.codigo AS fabricante_id FROM producto p, fabricante f WHERE p.codigo_fabricante = f.codigo
+-- Mysql 2
+# 4. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más barato.
+-- Mysql 1
+-- Mysql 2
+# 5. Devuelve el nombre del producto, su precio y el nombre de su fabricante, del producto más caro.
+-- Mysql 1
+-- Mysql 2
+# 6. Devuelve una lista de todos los productos del fabricante Lenovo.
+-- Mysql 1
+-- Mysql 2
+# 7. Devuelve una lista de todos los productos del fabricante Crucial que tengan un precio mayor que 200€.
+-- Mysql 1
+-- Mysql 2
+
